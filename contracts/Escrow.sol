@@ -19,10 +19,8 @@ contract Escrow{
     }
 
     function withdraw(address payable payee)public onlyAgent {
-        uint256 payement = deposit[payee];
-        deposit([payee]) =0;
+        uint256 payement = deposits[payee];
+        deposits[payee] =0;
         payee.transfer(payement);
     }
-
-
 }
