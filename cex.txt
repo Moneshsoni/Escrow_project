@@ -1,0 +1,84 @@
+
+sergzuko
+2 years ago
+install clean debian 10.3
+
+#install sudo
+apt update
+apt install sudo
+
+#create user app
+sudo useradd -g users -s which bash -m app
+
+#change password for user
+sudo passwd app
+
+#add user to sudo group
+sudo usermod -aG sudo app
+
+#disable ipv6 OPTIONAL
+
+nano /etc/sysctl.conf
+
+#And add the following line at the end of the file:
+
+net.ipv6.conf.all.disable_ipv6 = 1
+sudo sysctl -p
+
+su - app
+
+Install RVM
+sudo apt install gnupg2 curl git
+gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+\curl -sSL https://get.rvm.io | bash -s stable --rails
+
+source /home/app/.rvm/scripts/rvm
+
+git clone https://github.com/openware/opendax.git
+
+cd opendax
+
+#change websire domain config/app.yml
+
+rvm install "ruby-2.6.5"
+
+gem install bundler:2.1.4
+
+bundle update
+
+bundle install
+
+#install docker
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+  
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+sudo apt-key fingerprint 0EBFCD88
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+   
+sudo apt-get update  
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+sudo usermod -aG docker $USER
+
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+#logout and login with user app
+
+
+
+#run with defauld in opendax folder
+rake service:all
