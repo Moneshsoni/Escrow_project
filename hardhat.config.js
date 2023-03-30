@@ -6,7 +6,24 @@ module.exports = {
     compilers: [
       {
         version: "0.8.9",
-      }
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 800,
+          },
+          viaIR:true,
+        },
+      },
+      {
+        version: "0.8.13",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 800,
+          },
+          viaIR:true,
+        },
+      },
       
     ]
   }
