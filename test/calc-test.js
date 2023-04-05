@@ -10,9 +10,13 @@ describe("Deploy calc",async ()=>{
     })
 
     describe("Call method of contract",async ()=>{
-        it("check the address",async ()=>{
-            console.log("contract add",calc.address);
-           
+        it("Call the add function",async ()=>{
+            let a = 10;
+            let b = 100;
+            await calc.Add(a,b);
         });
+        it("Read the sum of the addition",async ()=>{
+            console.log("Get the sum",await calc.getAddRes());
+        })
     })
 })
